@@ -1,0 +1,610 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TetraModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AdminPermissions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="AdminID" Type="int" />
+    <Property Name="PermissionID" Type="int" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Admins">
+    <Key>
+      <PropertyRef Name="AdminID" />
+    </Key>
+    <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdminType" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="BlockedAccounts">
+    <Key>
+      <PropertyRef Name="BlockID" />
+    </Key>
+    <Property Name="BlockerID" Type="int" />
+    <Property Name="BlockedID" Type="int" />
+    <Property Name="BlockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Contacts">
+    <Key>
+      <PropertyRef Name="FriendID" />
+    </Key>
+    <Property Name="ContactID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="FriendID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GroupMessages">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="MessageID" Type="int" />
+    <Property Name="GroupID" Type="int" />
+    <Property Name="SenderID" Type="int" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Groups">
+    <Key>
+      <PropertyRef Name="GroupID" />
+    </Key>
+    <Property Name="GroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="GroupPicture" Type="int" />
+    <Property Name="Owner" Type="int" />
+    <Property Name="GroupType" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Media">
+    <Key>
+      <PropertyRef Name="MediaID" />
+    </Key>
+    <Property Name="MediaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MediaName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Size" Type="nvarchar" MaxLength="50" />
+    <Property Name="Path" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Messages">
+    <Key>
+      <PropertyRef Name="MessageID" />
+    </Key>
+    <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SentTime" Type="datetime" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="Attachment" Type="int" />
+    <Property Name="ReplyMessageID" Type="int" />
+  </EntityType>
+  <EntityType Name="NotActivatedAccounts">
+    <Key>
+      <PropertyRef Name="ActivateCode" />
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="ActivateCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Participants">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="UserID" Type="int" />
+    <Property Name="GroupID" Type="int" />
+    <Property Name="AdminID" Type="int" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Permissions">
+    <Key>
+      <PropertyRef Name="PermissionID" />
+    </Key>
+    <Property Name="PermissionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PermissionName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PermissionDescrption" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Bio" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProfilePicture" Type="int" />
+    <Property Name="Activated" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="LastSeen" Type="datetime" />
+    <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__AdminPerm__Admin__49C3F6B7">
+    <End Role="Admins" Type="Self.Admins" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AdminPermissions" Type="Self.AdminPermissions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admins">
+        <PropertyRef Name="AdminID" />
+      </Principal>
+      <Dependent Role="AdminPermissions">
+        <PropertyRef Name="AdminID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AdminPerm__Permi__4AB81AF0">
+    <End Role="Permissions" Type="Self.Permissions" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AdminPermissions" Type="Self.AdminPermissions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permissions">
+        <PropertyRef Name="PermissionID" />
+      </Principal>
+      <Dependent Role="AdminPermissions">
+        <PropertyRef Name="PermissionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BlockedAc__Block__5224328E">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="BlockedAccounts" Type="Self.BlockedAccounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="BlockedAccounts">
+        <PropertyRef Name="BlockerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BlockedAc__Block__531856C7">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="BlockedAccounts" Type="Self.BlockedAccounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="BlockedAccounts">
+        <PropertyRef Name="BlockedID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Contacts__UserID__4BAC3F29">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Contacts" Type="Self.Contacts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Contacts">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GroupMess__Group__4CA06362">
+    <End Role="Groups" Type="Self.Groups" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GroupMessages" Type="Self.GroupMessages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="GroupMessages">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GroupMess__Messa__4D94879B">
+    <End Role="Messages" Type="Self.Messages" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GroupMessages" Type="Self.GroupMessages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Messages">
+        <PropertyRef Name="MessageID" />
+      </Principal>
+      <Dependent Role="GroupMessages">
+        <PropertyRef Name="MessageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GroupMess__Sende__6FE99F9F">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="GroupMessages" Type="Self.GroupMessages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="GroupMessages">
+        <PropertyRef Name="SenderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Groups__GroupPic__4E88ABD4">
+    <End Role="Media" Type="Self.Media" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Media">
+        <PropertyRef Name="MediaID" />
+      </Principal>
+      <Dependent Role="Groups">
+        <PropertyRef Name="GroupPicture" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Groups__Owner__4F7CD00D">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Groups">
+        <PropertyRef Name="Owner" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Messages__Attach__5070F446">
+    <End Role="Media" Type="Self.Media" Multiplicity="0..1" />
+    <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Media">
+        <PropertyRef Name="MediaID" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="Attachment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Messages__ReplyM__5165187F">
+    <End Role="Messages" Type="Self.Messages" Multiplicity="0..1" />
+    <End Role="Messages1" Type="Self.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Messages">
+        <PropertyRef Name="MessageID" />
+      </Principal>
+      <Dependent Role="Messages1">
+        <PropertyRef Name="ReplyMessageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__NotActiva__UserI__52593CB8">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="NotActivatedAccounts" Type="Self.NotActivatedAccounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="NotActivatedAccounts">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Participa__Admin__534D60F1">
+    <End Role="Admins" Type="Self.Admins" Multiplicity="0..1" />
+    <End Role="Participants" Type="Self.Participants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admins">
+        <PropertyRef Name="AdminID" />
+      </Principal>
+      <Dependent Role="Participants">
+        <PropertyRef Name="AdminID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Participa__Group__5441852A">
+    <End Role="Groups" Type="Self.Groups" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Participants" Type="Self.Participants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="Participants">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Participa__UserI__5535A963">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Participants" Type="Self.Participants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Participants">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__ProfilePi__5629CD9C">
+    <End Role="Media" Type="Self.Media" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Media">
+        <PropertyRef Name="MediaID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="ProfilePicture" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Friend_UserID">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Contacts" Type="Self.Contacts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Contacts">
+        <PropertyRef Name="ContactID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ActivateMyAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userID" Type="int" Mode="In" />
+    <Parameter Name="ActivateCode" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="AddAFriend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="FriendID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="AddAnAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="OwnerID" Type="int" Mode="In" />
+    <Parameter Name="GroupID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="AddAUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="GroupID" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="RequesterID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="BlockAUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BlockerID" Type="int" Mode="In" />
+    <Parameter Name="BlockedID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="CreateAConversation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="User1ID" Type="int" Mode="In" />
+    <Parameter Name="User2ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="CreateAGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="GroupName" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="CreateAUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FullName" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="NickName" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Password" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Bio" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Email" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="DeleteAConversation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Member1ID" Type="int" Mode="In" />
+    <Parameter Name="Member2ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DeleteAGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="GroupID" Type="int" Mode="In" />
+    <Parameter Name="RequesterID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DeleteConversation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="GroupID" Type="int" Mode="In" />
+    <Parameter Name="RequesterID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DeleteFromContacts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="FriendID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DeleteMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RequseterID" Type="int" Mode="In" />
+    <Parameter Name="MessageID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DeleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EditGroupDescription" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="GroupID" Type="int" Mode="In" />
+    <Parameter Name="NewDescription" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="EditGroupName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="GroupID" Type="int" Mode="In" />
+    <Parameter Name="NewName" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="EditGroupPicture" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="GroupID" Type="int" Mode="In" />
+    <Parameter Name="ImageID" Type="int" Mode="In" />
+    <Parameter Name="ImagePath" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="ImageName" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="EditUserBio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userId" Type="int" Mode="In" />
+    <Parameter Name="NewBio" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="EditUserEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OldEmail" Type="varchar(max)" Mode="In" />
+    <Parameter Name="NewEmail" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="EditUserNickName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userID" Type="int" Mode="In" />
+    <Parameter Name="NewNickName" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="EditUserPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userID" Type="int" Mode="In" />
+    <Parameter Name="OldPassword" Type="varchar(max)" Mode="In" />
+    <Parameter Name="NewPassword" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="GoOffline" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GoOnline" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="RemoveAnAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="GroupID" Type="int" Mode="In" />
+    <Parameter Name="RequesterID" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="RemoveAUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OwnerID" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="GroupID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="RemoveBlock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BlockerID" Type="int" Mode="In" />
+    <Parameter Name="BlockedID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SaveMedia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MediaID" Type="int" Mode="In" />
+    <Parameter Name="Name" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Path" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="SendMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="GroupID" Type="int" Mode="In" />
+    <Parameter Name="SenderID" Type="int" Mode="In" />
+    <Parameter Name="Content" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="AttachmentPath" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="AttachmentName" Type="varchar(max)" Mode="In" />
+    <Parameter Name="MessageToReplay" Type="int" Mode="In" />
+    <Parameter Name="SentTime" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="setAnewAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="GroupID" Type="int" Mode="In" />
+    <Parameter Name="AdminID" Type="int" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SetAnImage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userID" Type="int" Mode="In" />
+    <Parameter Name="Path" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="ImageName" Type="varchar(max)" Mode="In" />
+    <Parameter Name="ImageID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="TetraModelsStoreContainer">
+    <EntitySet Name="AdminPermissions" EntityType="Self.AdminPermissions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BlockedAccounts" EntityType="Self.BlockedAccounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GroupMessages" EntityType="Self.GroupMessages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Media" EntityType="Self.Media" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NotActivatedAccounts" EntityType="Self.NotActivatedAccounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Participants" EntityType="Self.Participants" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__AdminPerm__Admin__49C3F6B7" Association="Self.FK__AdminPerm__Admin__49C3F6B7">
+      <End Role="Admins" EntitySet="Admins" />
+      <End Role="AdminPermissions" EntitySet="AdminPermissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AdminPerm__Permi__4AB81AF0" Association="Self.FK__AdminPerm__Permi__4AB81AF0">
+      <End Role="Permissions" EntitySet="Permissions" />
+      <End Role="AdminPermissions" EntitySet="AdminPermissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BlockedAc__Block__5224328E" Association="Self.FK__BlockedAc__Block__5224328E">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="BlockedAccounts" EntitySet="BlockedAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BlockedAc__Block__531856C7" Association="Self.FK__BlockedAc__Block__531856C7">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="BlockedAccounts" EntitySet="BlockedAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Contacts__UserID__4BAC3F29" Association="Self.FK__Contacts__UserID__4BAC3F29">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Contacts" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GroupMess__Group__4CA06362" Association="Self.FK__GroupMess__Group__4CA06362">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="GroupMessages" EntitySet="GroupMessages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GroupMess__Messa__4D94879B" Association="Self.FK__GroupMess__Messa__4D94879B">
+      <End Role="Messages" EntitySet="Messages" />
+      <End Role="GroupMessages" EntitySet="GroupMessages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GroupMess__Sende__6FE99F9F" Association="Self.FK__GroupMess__Sende__6FE99F9F">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="GroupMessages" EntitySet="GroupMessages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Groups__GroupPic__4E88ABD4" Association="Self.FK__Groups__GroupPic__4E88ABD4">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="Groups" EntitySet="Groups" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Groups__Owner__4F7CD00D" Association="Self.FK__Groups__Owner__4F7CD00D">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Groups" EntitySet="Groups" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Messages__Attach__5070F446" Association="Self.FK__Messages__Attach__5070F446">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Messages__ReplyM__5165187F" Association="Self.FK__Messages__ReplyM__5165187F">
+      <End Role="Messages" EntitySet="Messages" />
+      <End Role="Messages1" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__NotActiva__UserI__52593CB8" Association="Self.FK__NotActiva__UserI__52593CB8">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="NotActivatedAccounts" EntitySet="NotActivatedAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Participa__Admin__534D60F1" Association="Self.FK__Participa__Admin__534D60F1">
+      <End Role="Admins" EntitySet="Admins" />
+      <End Role="Participants" EntitySet="Participants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Participa__Group__5441852A" Association="Self.FK__Participa__Group__5441852A">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="Participants" EntitySet="Participants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Participa__UserI__5535A963" Association="Self.FK__Participa__UserI__5535A963">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Participants" EntitySet="Participants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__ProfilePi__5629CD9C" Association="Self.FK__Users__ProfilePi__5629CD9C">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Friend_UserID" Association="Self.FK_Friend_UserID">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Contacts" EntitySet="Contacts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TetraModelsStoreContainer" CdmEntityContainer="Tetra_MessengerEntities">
+    <EntitySetMapping Name="AdminPermissions">
+      <EntityTypeMapping TypeName="TetraModels.AdminPermission">
+        <MappingFragment StoreEntitySet="AdminPermissions">
+          <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+          <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="TetraModels.Admin">
+        <MappingFragment StoreEntitySet="Admins">
+          <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+          <ScalarProperty Name="AdminType" ColumnName="AdminType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BlockedAccounts">
+      <EntityTypeMapping TypeName="TetraModels.BlockedAccount">
+        <MappingFragment StoreEntitySet="BlockedAccounts">
+          <ScalarProperty Name="BlockerID" ColumnName="BlockerID" />
+          <ScalarProperty Name="BlockedID" ColumnName="BlockedID" />
+          <ScalarProperty Name="BlockID" ColumnName="BlockID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contacts">
+      <EntityTypeMapping TypeName="TetraModels.Contact">
+        <MappingFragment StoreEntitySet="Contacts">
+          <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="FriendID" ColumnName="FriendID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GroupMessages">
+      <EntityTypeMapping TypeName="TetraModels.GroupMessage">
+        <MappingFragment StoreEntitySet="GroupMessages">
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="TetraModels.Group">
+        <MappingFragment StoreEntitySet="Groups">
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="GroupPicture" ColumnName="GroupPicture" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Media">
+      <EntityTypeMapping TypeName="TetraModels.Medium">
+        <MappingFragment StoreEntitySet="Media">
+          <ScalarProperty Name="MediaID" ColumnName="MediaID" />
+          <ScalarProperty Name="MediaName" ColumnName="MediaName" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="TetraModels.Message">
+        <MappingFragment StoreEntitySet="Messages">
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+          <ScalarProperty Name="SentTime" ColumnName="SentTime" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+          <ScalarProperty Name="ReplyMessageID" ColumnName="ReplyMessageID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NotActivatedAccounts">
+      <EntityTypeMapping TypeName="TetraModels.NotActivatedAccount">
+        <MappingFragment StoreEntitySet="NotActivatedAccounts">
+          <ScalarProperty Name="ActivateCode" ColumnName="ActivateCode" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Participants">
+      <EntityTypeMapping TypeName="TetraModels.Participant">
+        <MappingFragment StoreEntitySet="Participants">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Permissions">
+      <EntityTypeMapping TypeName="TetraModels.Permission">
+        <MappingFragment StoreEntitySet="Permissions">
+          <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+          <ScalarProperty Name="PermissionName" ColumnName="PermissionName" />
+          <ScalarProperty Name="PermissionDescrption" ColumnName="PermissionDescrption" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="TetraModels.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="TetraModels.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Bio" ColumnName="Bio" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+          <ScalarProperty Name="Activated" ColumnName="Activated" />
+          <ScalarProperty Name="LastSeen" ColumnName="LastSeen" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ActivateMyAccount" FunctionName="TetraModels.Store.ActivateMyAccount" />
+    <FunctionImportMapping FunctionImportName="AddAFriend" FunctionName="TetraModels.Store.AddAFriend" />
+    <FunctionImportMapping FunctionImportName="AddAnAdmin" FunctionName="TetraModels.Store.AddAnAdmin" />
+    <FunctionImportMapping FunctionImportName="AddAUser" FunctionName="TetraModels.Store.AddAUser" />
+    <FunctionImportMapping FunctionImportName="BlockAUser" FunctionName="TetraModels.Store.BlockAUser" />
+    <FunctionImportMapping FunctionImportName="CreateAConversation" FunctionName="TetraModels.Store.CreateAConversation" />
+    <FunctionImportMapping FunctionImportName="CreateAGroup" FunctionName="TetraModels.Store.CreateAGroup" />
+    <FunctionImportMapping FunctionImportName="CreateAUser" FunctionName="TetraModels.Store.CreateAUser" />
+    <FunctionImportMapping FunctionImportName="DeleteAConversation" FunctionName="TetraModels.Store.DeleteAConversation" />
+    <FunctionImportMapping FunctionImportName="DeleteAGroup" FunctionName="TetraModels.Store.DeleteAGroup" />
+    <FunctionImportMapping FunctionImportName="DeleteConversation" FunctionName="TetraModels.Store.DeleteConversation" />
+    <FunctionImportMapping FunctionImportName="DeleteFromContacts" FunctionName="TetraModels.Store.DeleteFromContacts" />
+    <FunctionImportMapping FunctionImportName="DeleteMessage" FunctionName="TetraModels.Store.DeleteMessage" />
+    <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="TetraModels.Store.DeleteUser" />
+    <FunctionImportMapping FunctionImportName="EditGroupDescription" FunctionName="TetraModels.Store.EditGroupDescription" />
+    <FunctionImportMapping FunctionImportName="EditGroupName" FunctionName="TetraModels.Store.EditGroupName" />
+    <FunctionImportMapping FunctionImportName="EditGroupPicture" FunctionName="TetraModels.Store.EditGroupPicture" />
+    <FunctionImportMapping FunctionImportName="EditUserBio" FunctionName="TetraModels.Store.EditUserBio" />
+    <FunctionImportMapping FunctionImportName="EditUserEmail" FunctionName="TetraModels.Store.EditUserEmail" />
+    <FunctionImportMapping FunctionImportName="EditUserNickName" FunctionName="TetraModels.Store.EditUserNickName" />
+    <FunctionImportMapping FunctionImportName="EditUserPassword" FunctionName="TetraModels.Store.EditUserPassword" />
+    <FunctionImportMapping FunctionImportName="GoOffline" FunctionName="TetraModels.Store.GoOffline" />
+    <FunctionImportMapping FunctionImportName="GoOnline" FunctionName="TetraModels.Store.GoOnline" />
+    <FunctionImportMapping FunctionImportName="RemoveAnAdmin" FunctionName="TetraModels.Store.RemoveAnAdmin" />
+    <FunctionImportMapping FunctionImportName="RemoveAUser" FunctionName="TetraModels.Store.RemoveAUser" />
+    <FunctionImportMapping FunctionImportName="RemoveBlock" FunctionName="TetraModels.Store.RemoveBlock" />
+    <FunctionImportMapping FunctionImportName="SaveMedia" FunctionName="TetraModels.Store.SaveMedia" />
+    <FunctionImportMapping FunctionImportName="SendMessage" FunctionName="TetraModels.Store.SendMessage" />
+    <FunctionImportMapping FunctionImportName="setAnewAdmin" FunctionName="TetraModels.Store.setAnewAdmin" />
+    <FunctionImportMapping FunctionImportName="SetAnImage" FunctionName="TetraModels.Store.SetAnImage" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="TetraModels.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="TetraModels.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="TetraModels.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="TetraModels.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TetraModels.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="TetraModels.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TetraModels.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="TetraModels.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="TetraModels.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>

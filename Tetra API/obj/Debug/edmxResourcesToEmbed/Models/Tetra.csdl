@@ -1,0 +1,656 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TetraModels" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AdminPermission">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="AdminID" Type="Int32" />
+    <Property Name="PermissionID" Type="Int32" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK__AdminPerm__Admin__49C3F6B7" FromRole="AdminPermissions" ToRole="Admins" />
+    <NavigationProperty Name="Permission" Relationship="Self.FK__AdminPerm__Permi__4AB81AF0" FromRole="AdminPermissions" ToRole="Permissions" />
+  </EntityType>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="AdminID" />
+    </Key>
+    <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdminType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AdminPermissions" Relationship="Self.FK__AdminPerm__Admin__49C3F6B7" FromRole="Admins" ToRole="AdminPermissions" />
+    <NavigationProperty Name="Participants" Relationship="Self.FK__Participa__Admin__534D60F1" FromRole="Admins" ToRole="Participants" />
+  </EntityType>
+  <EntityType Name="BlockedAccount">
+    <Key>
+      <PropertyRef Name="BlockID" />
+    </Key>
+    <Property Name="BlockerID" Type="Int32" />
+    <Property Name="BlockedID" Type="Int32" />
+    <Property Name="BlockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="User" Relationship="Self.FK__BlockedAc__Block__5224328E" FromRole="BlockedAccounts" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK__BlockedAc__Block__531856C7" FromRole="BlockedAccounts" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="FriendID" />
+    </Key>
+    <Property Name="ContactID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="FriendID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Contacts__UserID__4BAC3F29" FromRole="Contacts" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_Friend_UserID" FromRole="Contacts" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="GroupMessage">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="MessageID" Type="Int32" />
+    <Property Name="GroupID" Type="Int32" />
+    <Property Name="SenderID" Type="Int32" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Group" Relationship="Self.FK__GroupMess__Group__4CA06362" FromRole="GroupMessages" ToRole="Groups" />
+    <NavigationProperty Name="Message" Relationship="Self.FK__GroupMess__Messa__4D94879B" FromRole="GroupMessages" ToRole="Messages" />
+    <NavigationProperty Name="User" Relationship="Self.FK__GroupMess__Sende__6FE99F9F" FromRole="GroupMessages" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Group">
+    <Key>
+      <PropertyRef Name="GroupID" />
+    </Key>
+    <Property Name="GroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="GroupPicture" Type="Int32" />
+    <Property Name="Owner" Type="Int32" />
+    <Property Name="GroupType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="GroupMessages" Relationship="Self.FK__GroupMess__Group__4CA06362" FromRole="Groups" ToRole="GroupMessages" />
+    <NavigationProperty Name="Medium" Relationship="Self.FK__Groups__GroupPic__4E88ABD4" FromRole="Groups" ToRole="Media" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Groups__Owner__4F7CD00D" FromRole="Groups" ToRole="Users" />
+    <NavigationProperty Name="Participants" Relationship="Self.FK__Participa__Group__5441852A" FromRole="Groups" ToRole="Participants" />
+  </EntityType>
+  <EntityType Name="Medium">
+    <Key>
+      <PropertyRef Name="MediaID" />
+    </Key>
+    <Property Name="MediaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MediaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Groups" Relationship="Self.FK__Groups__GroupPic__4E88ABD4" FromRole="Media" ToRole="Groups" />
+    <NavigationProperty Name="Messages" Relationship="Self.FK__Messages__Attach__5070F446" FromRole="Media" ToRole="Messages" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Users__ProfilePi__5629CD9C" FromRole="Media" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="MessageID" />
+    </Key>
+    <Property Name="MessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SentTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Attachment" Type="Int32" />
+    <Property Name="ReplyMessageID" Type="Int32" />
+    <NavigationProperty Name="GroupMessages" Relationship="Self.FK__GroupMess__Messa__4D94879B" FromRole="Messages" ToRole="GroupMessages" />
+    <NavigationProperty Name="Medium" Relationship="Self.FK__Messages__Attach__5070F446" FromRole="Messages" ToRole="Media" />
+    <NavigationProperty Name="Messages1" Relationship="Self.FK__Messages__ReplyM__5165187F" FromRole="Messages" ToRole="Messages1" />
+    <NavigationProperty Name="Message1" Relationship="Self.FK__Messages__ReplyM__5165187F" FromRole="Messages1" ToRole="Messages" />
+  </EntityType>
+  <EntityType Name="NotActivatedAccount">
+    <Key>
+      <PropertyRef Name="ActivateCode" />
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="ActivateCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK__NotActiva__UserI__52593CB8" FromRole="NotActivatedAccounts" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Participant">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="GroupID" Type="Int32" />
+    <Property Name="AdminID" Type="Int32" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK__Participa__Admin__534D60F1" FromRole="Participants" ToRole="Admins" />
+    <NavigationProperty Name="Group" Relationship="Self.FK__Participa__Group__5441852A" FromRole="Participants" ToRole="Groups" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Participa__UserI__5535A963" FromRole="Participants" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="PermissionID" />
+    </Key>
+    <Property Name="PermissionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PermissionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PermissionDescrption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AdminPermissions" Relationship="Self.FK__AdminPerm__Permi__4AB81AF0" FromRole="Permissions" ToRole="AdminPermissions" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Bio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProfilePicture" Type="Int32" />
+    <Property Name="Activated" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastSeen" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="BlockedAccounts" Relationship="Self.FK__BlockedAc__Block__5224328E" FromRole="Users" ToRole="BlockedAccounts" />
+    <NavigationProperty Name="BlockedAccounts1" Relationship="Self.FK__BlockedAc__Block__531856C7" FromRole="Users" ToRole="BlockedAccounts" />
+    <NavigationProperty Name="Contacts" Relationship="Self.FK__Contacts__UserID__4BAC3F29" FromRole="Users" ToRole="Contacts" />
+    <NavigationProperty Name="Contacts1" Relationship="Self.FK_Friend_UserID" FromRole="Users" ToRole="Contacts" />
+    <NavigationProperty Name="GroupMessages" Relationship="Self.FK__GroupMess__Sende__6FE99F9F" FromRole="Users" ToRole="GroupMessages" />
+    <NavigationProperty Name="Groups" Relationship="Self.FK__Groups__Owner__4F7CD00D" FromRole="Users" ToRole="Groups" />
+    <NavigationProperty Name="Medium" Relationship="Self.FK__Users__ProfilePi__5629CD9C" FromRole="Users" ToRole="Media" />
+    <NavigationProperty Name="NotActivatedAccounts" Relationship="Self.FK__NotActiva__UserI__52593CB8" FromRole="Users" ToRole="NotActivatedAccounts" />
+    <NavigationProperty Name="Participants" Relationship="Self.FK__Participa__UserI__5535A963" FromRole="Users" ToRole="Participants" />
+  </EntityType>
+  <Association Name="FK__AdminPerm__Admin__49C3F6B7">
+    <End Role="Admins" Type="Self.Admin" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AdminPermissions" Type="Self.AdminPermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admins">
+        <PropertyRef Name="AdminID" />
+      </Principal>
+      <Dependent Role="AdminPermissions">
+        <PropertyRef Name="AdminID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AdminPerm__Permi__4AB81AF0">
+    <End Role="Permissions" Type="Self.Permission" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AdminPermissions" Type="Self.AdminPermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permissions">
+        <PropertyRef Name="PermissionID" />
+      </Principal>
+      <Dependent Role="AdminPermissions">
+        <PropertyRef Name="PermissionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Participa__Admin__534D60F1">
+    <End Role="Admins" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Participants" Type="Self.Participant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admins">
+        <PropertyRef Name="AdminID" />
+      </Principal>
+      <Dependent Role="Participants">
+        <PropertyRef Name="AdminID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BlockedAc__Block__5224328E">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="BlockedAccounts" Type="Self.BlockedAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="BlockedAccounts">
+        <PropertyRef Name="BlockerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BlockedAc__Block__531856C7">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="BlockedAccounts" Type="Self.BlockedAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="BlockedAccounts">
+        <PropertyRef Name="BlockedID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Contacts__UserID__4BAC3F29">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Contacts" Type="Self.Contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Contacts">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Friend_UserID">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Contacts" Type="Self.Contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Contacts">
+        <PropertyRef Name="ContactID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GroupMess__Group__4CA06362">
+    <End Role="Groups" Type="Self.Group" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GroupMessages" Type="Self.GroupMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="GroupMessages">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GroupMess__Messa__4D94879B">
+    <End Role="Messages" Type="Self.Message" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GroupMessages" Type="Self.GroupMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Messages">
+        <PropertyRef Name="MessageID" />
+      </Principal>
+      <Dependent Role="GroupMessages">
+        <PropertyRef Name="MessageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GroupMess__Sende__6FE99F9F">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="GroupMessages" Type="Self.GroupMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="GroupMessages">
+        <PropertyRef Name="SenderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Groups__GroupPic__4E88ABD4">
+    <End Role="Media" Type="Self.Medium" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Groups" Type="Self.Group" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Media">
+        <PropertyRef Name="MediaID" />
+      </Principal>
+      <Dependent Role="Groups">
+        <PropertyRef Name="GroupPicture" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Groups__Owner__4F7CD00D">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Groups" Type="Self.Group" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Groups">
+        <PropertyRef Name="Owner" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Participa__Group__5441852A">
+    <End Role="Groups" Type="Self.Group" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Participants" Type="Self.Participant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="Participants">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Messages__Attach__5070F446">
+    <End Role="Media" Type="Self.Medium" Multiplicity="0..1" />
+    <End Role="Messages" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Media">
+        <PropertyRef Name="MediaID" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="Attachment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__ProfilePi__5629CD9C">
+    <End Role="Media" Type="Self.Medium" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Media">
+        <PropertyRef Name="MediaID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="ProfilePicture" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Messages__ReplyM__5165187F">
+    <End Role="Messages" Type="Self.Message" Multiplicity="0..1" />
+    <End Role="Messages1" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Messages">
+        <PropertyRef Name="MessageID" />
+      </Principal>
+      <Dependent Role="Messages1">
+        <PropertyRef Name="ReplyMessageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__NotActiva__UserI__52593CB8">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="NotActivatedAccounts" Type="Self.NotActivatedAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="NotActivatedAccounts">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Participa__UserI__5535A963">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Participants" Type="Self.Participant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Participants">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Tetra_MessengerEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AdminPermissions" EntityType="Self.AdminPermission" />
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="BlockedAccounts" EntityType="Self.BlockedAccount" />
+    <EntitySet Name="Contacts" EntityType="Self.Contact" />
+    <EntitySet Name="GroupMessages" EntityType="Self.GroupMessage" />
+    <EntitySet Name="Groups" EntityType="Self.Group" />
+    <EntitySet Name="Media" EntityType="Self.Medium" />
+    <EntitySet Name="Messages" EntityType="Self.Message" />
+    <EntitySet Name="NotActivatedAccounts" EntityType="Self.NotActivatedAccount" />
+    <EntitySet Name="Participants" EntityType="Self.Participant" />
+    <EntitySet Name="Permissions" EntityType="Self.Permission" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK__AdminPerm__Admin__49C3F6B7" Association="Self.FK__AdminPerm__Admin__49C3F6B7">
+      <End Role="Admins" EntitySet="Admins" />
+      <End Role="AdminPermissions" EntitySet="AdminPermissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AdminPerm__Permi__4AB81AF0" Association="Self.FK__AdminPerm__Permi__4AB81AF0">
+      <End Role="Permissions" EntitySet="Permissions" />
+      <End Role="AdminPermissions" EntitySet="AdminPermissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Participa__Admin__534D60F1" Association="Self.FK__Participa__Admin__534D60F1">
+      <End Role="Admins" EntitySet="Admins" />
+      <End Role="Participants" EntitySet="Participants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BlockedAc__Block__5224328E" Association="Self.FK__BlockedAc__Block__5224328E">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="BlockedAccounts" EntitySet="BlockedAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BlockedAc__Block__531856C7" Association="Self.FK__BlockedAc__Block__531856C7">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="BlockedAccounts" EntitySet="BlockedAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Contacts__UserID__4BAC3F29" Association="Self.FK__Contacts__UserID__4BAC3F29">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Contacts" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Friend_UserID" Association="Self.FK_Friend_UserID">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Contacts" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GroupMess__Group__4CA06362" Association="Self.FK__GroupMess__Group__4CA06362">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="GroupMessages" EntitySet="GroupMessages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GroupMess__Messa__4D94879B" Association="Self.FK__GroupMess__Messa__4D94879B">
+      <End Role="Messages" EntitySet="Messages" />
+      <End Role="GroupMessages" EntitySet="GroupMessages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GroupMess__Sende__6FE99F9F" Association="Self.FK__GroupMess__Sende__6FE99F9F">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="GroupMessages" EntitySet="GroupMessages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Groups__GroupPic__4E88ABD4" Association="Self.FK__Groups__GroupPic__4E88ABD4">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="Groups" EntitySet="Groups" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Groups__Owner__4F7CD00D" Association="Self.FK__Groups__Owner__4F7CD00D">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Groups" EntitySet="Groups" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Participa__Group__5441852A" Association="Self.FK__Participa__Group__5441852A">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="Participants" EntitySet="Participants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Messages__Attach__5070F446" Association="Self.FK__Messages__Attach__5070F446">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__ProfilePi__5629CD9C" Association="Self.FK__Users__ProfilePi__5629CD9C">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Messages__ReplyM__5165187F" Association="Self.FK__Messages__ReplyM__5165187F">
+      <End Role="Messages" EntitySet="Messages" />
+      <End Role="Messages1" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__NotActiva__UserI__52593CB8" Association="Self.FK__NotActiva__UserI__52593CB8">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="NotActivatedAccounts" EntitySet="NotActivatedAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Participa__UserI__5535A963" Association="Self.FK__Participa__UserI__5535A963">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Participants" EntitySet="Participants" />
+    </AssociationSet>
+    <FunctionImport Name="ActivateMyAccount">
+      <Parameter Name="userID" Mode="In" Type="Int32" />
+      <Parameter Name="ActivateCode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddAFriend">
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="FriendID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddAnAdmin">
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="OwnerID" Mode="In" Type="Int32" />
+      <Parameter Name="GroupID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddAUser">
+      <Parameter Name="GroupID" Mode="In" Type="Int32" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="RequesterID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="BlockAUser">
+      <Parameter Name="BlockerID" Mode="In" Type="Int32" />
+      <Parameter Name="BlockedID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CreateAConversation">
+      <Parameter Name="User1ID" Mode="In" Type="Int32" />
+      <Parameter Name="User2ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CreateAGroup">
+      <Parameter Name="GroupName" Mode="In" Type="String" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CreateAUser">
+      <Parameter Name="FullName" Mode="In" Type="String" />
+      <Parameter Name="NickName" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="Bio" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteAConversation">
+      <Parameter Name="Member1ID" Mode="In" Type="Int32" />
+      <Parameter Name="Member2ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteAGroup">
+      <Parameter Name="GroupID" Mode="In" Type="Int32" />
+      <Parameter Name="RequesterID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteConversation">
+      <Parameter Name="GroupID" Mode="In" Type="Int32" />
+      <Parameter Name="RequesterID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteFromContacts">
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="FriendID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteMessage">
+      <Parameter Name="RequseterID" Mode="In" Type="Int32" />
+      <Parameter Name="MessageID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteUser">
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EditGroupDescription">
+      <Parameter Name="GroupID" Mode="In" Type="Int32" />
+      <Parameter Name="NewDescription" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EditGroupName">
+      <Parameter Name="GroupID" Mode="In" Type="Int32" />
+      <Parameter Name="NewName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EditGroupPicture">
+      <Parameter Name="GroupID" Mode="In" Type="Int32" />
+      <Parameter Name="ImageID" Mode="In" Type="Int32" />
+      <Parameter Name="ImagePath" Mode="In" Type="String" />
+      <Parameter Name="ImageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EditUserBio">
+      <Parameter Name="userId" Mode="In" Type="Int32" />
+      <Parameter Name="NewBio" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EditUserEmail">
+      <Parameter Name="OldEmail" Mode="In" Type="String" />
+      <Parameter Name="NewEmail" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EditUserNickName">
+      <Parameter Name="userID" Mode="In" Type="Int32" />
+      <Parameter Name="NewNickName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EditUserPassword">
+      <Parameter Name="userID" Mode="In" Type="Int32" />
+      <Parameter Name="OldPassword" Mode="In" Type="String" />
+      <Parameter Name="NewPassword" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GoOffline">
+      <Parameter Name="userID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GoOnline">
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="RemoveAnAdmin">
+      <Parameter Name="GroupID" Mode="In" Type="Int32" />
+      <Parameter Name="RequesterID" Mode="In" Type="Int32" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="RemoveAUser">
+      <Parameter Name="OwnerID" Mode="In" Type="Int32" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="GroupID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="RemoveBlock">
+      <Parameter Name="BlockerID" Mode="In" Type="Int32" />
+      <Parameter Name="BlockedID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SaveMedia">
+      <Parameter Name="MediaID" Mode="In" Type="Int32" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="Path" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SendMessage">
+      <Parameter Name="GroupID" Mode="In" Type="Int32" />
+      <Parameter Name="SenderID" Mode="In" Type="Int32" />
+      <Parameter Name="Content" Mode="In" Type="String" />
+      <Parameter Name="AttachmentPath" Mode="In" Type="String" />
+      <Parameter Name="AttachmentName" Mode="In" Type="String" />
+      <Parameter Name="MessageToReplay" Mode="In" Type="Int32" />
+      <Parameter Name="SentTime" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="setAnewAdmin">
+      <Parameter Name="GroupID" Mode="In" Type="Int32" />
+      <Parameter Name="AdminID" Mode="In" Type="Int32" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SetAnImage">
+      <Parameter Name="userID" Mode="In" Type="Int32" />
+      <Parameter Name="Path" Mode="In" Type="String" />
+      <Parameter Name="ImageName" Mode="In" Type="String" />
+      <Parameter Name="ImageID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(TetraModels.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(TetraModels.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>
