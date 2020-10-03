@@ -20,6 +20,7 @@ namespace Tetra_Server
             var FileInByteArray = File.ReadAllBytes(Path);
 
             var NumberOfStageToSendAFile = FileInByteArray.LongLength / 1024;
+            if(NumberOfStageToSendAFile == 0) NumberOfStageToSendAFile = 1;
             var SendedSegment = 0;
 
             var Info = $"{FileInfo.Name},{FileInfo.Length},{NumberOfStageToSendAFile}";
